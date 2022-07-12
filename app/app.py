@@ -41,6 +41,8 @@ from database import models
 db = models.db
 db.init_app(app)
 
+with app.app_context():
+	db.create_all()
 
 
 
@@ -72,7 +74,7 @@ google = oauth.register(
 
 
 @app.route('/')
-def hello_world():
+def renderIndex():
 	return render_template('index.html')
 
 

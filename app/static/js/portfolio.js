@@ -65,12 +65,17 @@ const portfolio = {
 
 	},
 
-	addStock: function () {
+	handleAddStockButtonClick: function () {
 
 		$("#add-stock-button")[0].onclick = function (e) {
 
 			const ticker = $('#test-input-box')[0].value;
-			const count = 1
+			const count = $('#count-input-box')[0].value;
+			
+			if (isNaN(count)) {
+				console.log('not a number')
+				return;
+			}
 
 			$.ajax({
 				url: '/addstock?ticker=' + ticker + '&count=' + count,
@@ -90,6 +95,37 @@ const portfolio = {
 			})
 
 		}
+
+	},
+
+	handleSellStockButtonClick: function () {
+
+		$('#sell-stock-button')[0].onclick = function (e) {
+
+			const ticker = $('#test-input-box')[0].value;
+			const count = $('#count-input-box')[0].value;
+
+			if (isNaN(count)) {
+				console.log('not a number')
+				return;
+			}
+
+			$.ajax({
+				url: '/sellstock?ticker=' + ticker + '&count=' + count,
+				method: 'DELETE'
+			}).done(function (resp) {
+
+				if (resp.success === true) {
+					console.log('success')
+				}
+
+				if (resp.success === false) {
+					console.log('dont have')
+				}
+
+
+			})
+		}	
 
 	}
 

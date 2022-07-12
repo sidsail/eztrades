@@ -4,6 +4,7 @@ from flask import Flask, redirect, render_template, url_for, session, request, B
 test_page = Blueprint('test_page', __name__, template_folder='../templates')
 
 from database import users_db, holdings_db
+from main import stock_api_actions
 
 @test_page.route('/database/users/test')
 def handleUserTest():
@@ -23,3 +24,14 @@ def handleHoldingTest():
 
 	new_holding = holdings_db.addHolding(uid, ticker, count, buy_price)
 	return "done, {}".format(ticker)
+
+@test_page.route('/database/getholdings')
+def handleTestGetHoldings():
+
+	if 'profile' not in session:
+		return 'not logged in'
+
+	uid = session['uid']
+
+	return holdings_db.getTotalStockOwned(uid)
+
