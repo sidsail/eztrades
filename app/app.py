@@ -36,7 +36,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #databse shit
 
 
-from database import models
+from database_layer import models
 
 db = models.db
 db.init_app(app)
@@ -95,7 +95,7 @@ app.register_blueprint(test_page)
 app.register_blueprint(portfolio_actions)
 
 
-from database import users_db
+from database_layer import users_db
 
 
 #google oauth login stuff from here ^^^^ are the actual routes

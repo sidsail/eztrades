@@ -2,7 +2,7 @@ from flask import Flask, redirect, render_template, url_for, session, request, B
 
 portfolio_actions = Blueprint('portfolio_actions', __name__, template_folder='../templates')
 
-from database import holdings_db, users_db, transactions_db
+from database_layer import holdings_db, users_db, transactions_db
 from main import stock_api_actions
 from main import portfolio
 

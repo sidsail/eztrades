@@ -3,7 +3,7 @@ from flask import Flask, redirect, render_template, url_for, session, request, B
 
 test_page = Blueprint('test_page', __name__, template_folder='../templates')
 
-from database import users_db, holdings_db
+from database_layer import users_db, holdings_db
 from main import stock_api_actions
 
 @test_page.route('/database/users/test')

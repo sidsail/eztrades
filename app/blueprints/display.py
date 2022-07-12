@@ -1,6 +1,5 @@
 from flask import Flask, redirect, render_template, url_for, session, request, Blueprint
 
-from database import users_db
 
 display_page = Blueprint('display_page', __name__, template_folder='../templates')
 

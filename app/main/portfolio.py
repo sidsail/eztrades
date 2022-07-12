@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template, url_for, session, request, Blueprint, abort, jsonify
 
-from database import users_db, holdings_db
+from database_layer import users_db, holdings_db
 from . import stock_api_actions
 
 def handleBuyStock(ticker, count: int):
