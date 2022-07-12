@@ -3,3 +3,4 @@ start.sh
 app/instance
 .env
 __pycache__
+database
