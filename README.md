@@ -1,2 +1,2 @@
 # eztrades
-mock market
+mock market, built in flask
