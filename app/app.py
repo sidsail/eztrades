@@ -94,7 +94,8 @@ from database_layer import users_db
 
 @app.route('/')
 def renderIndex():
-
+	if 'profile' in session:
+		return redirect('/display/portfolio')
 	
 	return render_template('index.html')
 

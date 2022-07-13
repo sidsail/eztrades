@@ -28,7 +28,6 @@ const portfolio = {
 
 			const ticker = $('#test-input-box')[0].value;
 			if (ticker === "") {
-				console.log('nothing')
 				return 
 			}
 			console.log('submit button clicked')
@@ -76,6 +75,9 @@ const portfolio = {
 				console.log('not a number')
 				return;
 			}
+			if (ticker === "") {
+				return
+			}
 
 			$.ajax({
 				url: '/portfolio/action?ticker=' + ticker + '&count=' + count + '&action=buy',
@@ -108,6 +110,9 @@ const portfolio = {
 			if (isNaN(count)) {
 				console.log('not a number')
 				return;
+			}
+			if (ticker === "") {
+				return
 			}
 
 			$.ajax({
@@ -149,6 +154,13 @@ const portfolio = {
 			$.ajax({
 				url: '/portfolio/transactions',
 				method: 'GET'
+			}).done(function (resp) {
+
+				transactions_arr = resp.transactions
+				for (let i=0; i < transactions_arr.length; i++) {
+					console.log(transactions_arr[i])
+				}
+
 			})
 		}
 	}
