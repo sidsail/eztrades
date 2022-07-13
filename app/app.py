@@ -73,9 +73,6 @@ google = oauth.register(
 
 
 
-@app.route('/')
-def renderIndex():
-	return render_template('index.html')
 
 
 
@@ -84,18 +81,22 @@ def renderIndex():
 
 from blueprints.display import display_page
 from blueprints.portfolio_data import portfolio_info_page
-from blueprints.test import test_page
 from blueprints.portfolio_actions import portfolio_actions
 
 #routing split up
 
 app.register_blueprint(display_page)
 app.register_blueprint(portfolio_info_page)
-app.register_blueprint(test_page)
 app.register_blueprint(portfolio_actions)
 
 
 from database_layer import users_db
+
+@app.route('/')
+def renderIndex():
+
+	
+	return render_template('index.html')
 
 
 #google oauth login stuff from here ^^^^ are the actual routes

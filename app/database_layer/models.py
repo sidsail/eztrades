@@ -36,5 +36,5 @@ class Transaction(db.Model):
 	count = db.Column(db.Integer, nullable=False)
 	buy_price = db.Column(db.Float, nullable=False)
 	sell_price = db.Column(db.Float)
-	type = db.Column(db.String, nullable=False)
+	action = db.Column(db.String, nullable=False)
 	created = db.Column(db.DateTime, default=datetime.now(), nullable=False)

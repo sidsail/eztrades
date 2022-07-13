@@ -78,7 +78,7 @@ const portfolio = {
 			}
 
 			$.ajax({
-				url: '/addstock?ticker=' + ticker + '&count=' + count,
+				url: '/portfolio/action?ticker=' + ticker + '&count=' + count + '&action=buy',
 				method: 'POST'
 			}).done(function(resp) {
 
@@ -111,8 +111,8 @@ const portfolio = {
 			}
 
 			$.ajax({
-				url: '/sellstock?ticker=' + ticker + '&count=' + count,
-				method: 'DELETE'
+				url: '/portfolio/action?ticker=' + ticker + '&count=' + count + '&action=sell',
+				method: 'POST'
 			}).done(function (resp) {
 
 				if (resp.success === true) {
@@ -127,6 +127,30 @@ const portfolio = {
 			})
 		}	
 
+	},
+
+	handleGetHoldingsButtonClick: function () {
+
+		$('#get-holdings-button')[0].onclick = function (e) {
+
+			$.ajax({
+				url: '/portfolio/holdings',
+				method: 'GET'
+			})
+
+		}
+
+	},
+
+	handleGetTransactionHistoryButtonClick: function () {
+
+		$('#get-transaction-history')[0].onclick = function (e) {
+
+			$.ajax({
+				url: '/portfolio/transactions',
+				method: 'GET'
+			})
+		}
 	}
 
 
