@@ -3,7 +3,7 @@ from sqlalchemy import desc
 
 from .models import Transaction, db
 
-def addBuyTransaction(uid, ticker, count: int, buy_price):
+def addBuyTransaction(uid, ticker, count: int, buy_price: float):
 
 	tid = str(uuid.uuid4())
 

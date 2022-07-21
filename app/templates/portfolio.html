@@ -3,34 +3,12 @@
 <html>
 
 	<head>
-
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="../static/js/portfolio.js"></script>
-
-		<script>
-
-			$(document).ready(function () {
-
-				portfolio.handleLogoutButtonClick();
-				portfolio.handleSessionButtonClick();
-				portfolio.displayEmail();
-				portfolio.handleTestInputButtonClick();
-				portfolio.handleAddStockButtonClick();
-				portfolio.handleSellStockButtonClick();
-				portfolio.handleGetHoldingsButtonClick();
-				portfolio.handleGetTransactionHistoryButtonClick();
-
-
-			}) 
-
-		</script>
-
-
 	</head>
 
 	<body>
 		<h1>This is your portfolio page</h1>
-
 		<h2 id="email-display">ff</h2>
 
 		<div>
@@ -59,9 +37,34 @@
 			<h6 id="stock-data">stock data goes here</h6>
 		</div>
 
+		<div>
+			<p id="money-display"></p>
+		</div>
+		<div>
+			<p id="value-display">portfolio value: </p>
+		</div>
 		
 	</body>
 
+	<script>
+
+		$(document).ready(function () {
+
+			portfolio.displayPortfolioOnInitial();
+
+			portfolio.handleLogoutButtonClick();
+			portfolio.handleSessionButtonClick();
+			portfolio.displayEmail();
+			portfolio.handleTestInputButtonClick();
+			portfolio.handleAddStockButtonClick();
+			portfolio.handleSellStockButtonClick();
+			portfolio.handleGetHoldingsButtonClick();
+			portfolio.handleGetTransactionHistoryButtonClick();
+
+
+		}) 
+
+	</script>
 
 
 </html>

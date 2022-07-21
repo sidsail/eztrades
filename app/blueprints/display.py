@@ -16,6 +16,5 @@ def show():
 def handleDisplayPortfolio():
 	if 'profile' not in session:
 		return 'not logged in'
-
 	
 	return render_template('portfolio.html')

@@ -6,6 +6,9 @@ from re import S
 from statistics import mode
 from textwrap import indent
 from unicodedata import name
+import time
+
+from celery import Celery
 
 
 from flask import Flask, redirect, render_template, url_for, session, request, Blueprint
@@ -28,10 +31,13 @@ CORS(app)
 #config session
 app.secret_key = os.getenv("APP_SECRET_KEY")
 app.config['SESSION_COOKIE_NAME'] = 'google-login-session'
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=31)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../database/portfolios.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+
 
 #databse shit
 
@@ -92,6 +98,7 @@ app.register_blueprint(portfolio_actions)
 
 from database_layer import users_db
 
+
 @app.route('/')
 def renderIndex():
 	if 'profile' in session:
@@ -142,4 +149,7 @@ def logout():
 		session.pop(key)
 	return redirect('/')
 
+
+if __name__ == '__main__':
+	app.run()
 

@@ -18,11 +18,13 @@ def addUser(email):
 	db.session.commit()
 
 	print('added ', email)
+
 	return new_user
 
 def getUserByEmail(email):
 
 	user = User.query.filter_by(email=email).first()
+
 
 	return user
 

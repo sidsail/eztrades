@@ -9,7 +9,7 @@ def addHolding(uid, ticker, count: int, buy_price: int):
 
 	new_holding = Holding(hid=str(uuid.uuid4()), uid=uid, ticker=ticker, count=count, buy_price=buy_price)
 
-	holding = Holding.query.filter_by(buy_price=buy_price).first()
+	holding = Holding.query.filter_by(uid=uid, buy_price=buy_price).first()
 
 	if bool(holding) == True:
 		print(holding.count)

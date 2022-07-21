@@ -16,6 +16,7 @@ def handleGetHoldings():
 	uid = session['uid']
 	return portfolio.getHoldingsWithCurrentPrice(uid)
 
+
 @portfolio_actions.route('/portfolio/transactions')
 def handleGetTransactions():
 

@@ -28,7 +28,7 @@ const portfolio = {
 
 			const ticker = $('#test-input-box')[0].value;
 			if (ticker === "") {
-				return 
+				return
 			}
 			console.log('submit button clicked')
 			console.log(ticker)
@@ -43,7 +43,7 @@ const portfolio = {
 				}
 				console.log(resp)
 				$("#stock-data")[0].innerHTML = resp.current_price
-			} )
+			})
 
 		}
 
@@ -52,7 +52,7 @@ const portfolio = {
 	displayEmail: function () {
 		$.ajax({
 			url: '/portfolio/session',
-			method:'GET'
+			method: 'GET'
 
 		}).done(function (resp) {
 			const email = resp.profile.email;
@@ -68,9 +68,9 @@ const portfolio = {
 
 		$("#add-stock-button")[0].onclick = function (e) {
 
-			const ticker = $('#test-input-box')[0].value;
-			const count = $('#count-input-box')[0].value;
-			
+			const ticker = $('#test-input-box')[0].value.toUpperCase().trim();
+			const count = $('#count-input-box')[0].value.trim();
+
 			if (isNaN(count)) {
 				console.log('not a number')
 				return;
@@ -82,17 +82,21 @@ const portfolio = {
 			$.ajax({
 				url: '/portfolio/action?ticker=' + ticker + '&count=' + count + '&action=buy',
 				method: 'POST'
-			}).done(function(resp) {
-
+			}).done(function (resp) {
+				console.log(resp)
+				if ('error' in resp) {
+					console.log(resp.error)
+					return
+				}
 				if (resp.success === true) {
-					console.log('success')
+					console.log('successful!')
 				}
-				if (resp.success === 'money') {
-					console.log('not enough money')
-				}
-				if (resp.success === false) {
-					console.log('failed')
-				}
+				portfolio.updateBPDisplay(resp.new_money)
+				console.log(resp.value)
+
+				const values = document.getElementById("value-display")
+				const current_value = values[0].value
+				console.log(current_value)
 
 			})
 
@@ -104,8 +108,8 @@ const portfolio = {
 
 		$('#sell-stock-button')[0].onclick = function (e) {
 
-			const ticker = $('#test-input-box')[0].value;
-			const count = $('#count-input-box')[0].value;
+			const ticker = $('#test-input-box')[0].value.toUpperCase().trim();
+			const count = $('#count-input-box')[0].value.trim();
 
 			if (isNaN(count)) {
 				console.log('not a number')
@@ -125,12 +129,22 @@ const portfolio = {
 				}
 
 				if (resp.success === false) {
-					console.log('dont have')
+					console.log(resp.error)
+					return
 				}
 
+				portfolio.updateBPDisplay(resp.new_money)
+				console.log(resp.value)
+
+				current_value = ($('#value-display')[0].innerHTML)
+				console.log(current_value)
+
+				//new_value = current_value + resp.value
+
+				//$('#value-display')[0].innerHTML = new_value
 
 			})
-		}	
+		}
 
 	},
 
@@ -141,6 +155,13 @@ const portfolio = {
 			$.ajax({
 				url: '/portfolio/holdings',
 				method: 'GET'
+			}).done(function (resp) {
+
+				Object.keys(resp).forEach(function (key) {
+
+					console.log(key, resp[key])
+				})
+
 			})
 
 		}
@@ -157,13 +178,50 @@ const portfolio = {
 			}).done(function (resp) {
 
 				transactions_arr = resp.transactions
-				for (let i=0; i < transactions_arr.length; i++) {
+				for (let i = 0; i < transactions_arr.length; i++) {
 					console.log(transactions_arr[i])
 				}
 
 			})
 		}
-	}
+	},
+
+	updateBPDisplay: function (money) {
+
+		$('#money-display')[0].innerHTML = 'buying power: ' + money.toString()
+	},
+
+	updatePortfolioValueDisplay: function (value) {
+
+		$('#value-display')[0].innerHTML = 'portfolio value: ' + value.toString()
+		const current_value = $('#value-display')[0].value;
+		console.log(current_value)
+	},
+
+
+	displayPortfolioOnInitial: function () {
+
+		$.ajax({
+			url: '/portfolio/holdings',
+			method: 'GET'
+		}).done(function (resp) {
+
+			portfolio.updateBPDisplay(resp.money)
+
+			let value = 0
+			Object.keys(resp).forEach(function (key) {
+
+				if (key === 'money') {
+					return
+				}
+
+				value += (resp[key]['current_price'] * resp[key]['count'])
+				portfolio.updatePortfolioValueDisplay(value)
+
+			})
+		})
+
+	},
 
 
 
